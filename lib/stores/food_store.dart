@@ -3,6 +3,7 @@ import '../models/food_item.dart';
 import '../services/isar_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 part 'food_store.g.dart';
 
@@ -20,20 +21,22 @@ abstract class _FoodStore with Store {
   @action
   Future<void> fetchFoodItems() async {
     if (await _isarService.isFoodItemsEmpty()) {
-      final response = await http.get(Uri.parse('https://api.spoonacular.com/food/search?apiKey=4fea14b6f3b24c6d970fa17c33fd72e'));
-
+      final apiKey = dotenv.env['API_KEY'];
+      final response = await http.get(Uri.parse('https://api.spoonacular.com/food/search?apiKey=$apiKey'));
       if (response.statusCode == 200) {
         final data = json.decode(response.body)['searchResults'] as List;
-        List<FoodItem> items = [];
 
+        List<FoodItem> items = [];
         for (var result in data) {
-          for (var item in result['results']) {
-            items.add(FoodItem()
-              ..title = item['name']
-              ..calories = item['calories'] ?? 0
-              ..image = item['image']
-              ..link = item['link']
-              ..price = item['price'] ?? 10.0);  // Use a default price or get it from the API if available
+          final results = result['results'] as List;
+          for (var item in results) {
+            items.add(FoodItem.fromJson({
+              'title': item['name'] ?? '',
+              'calories': extractCalories(item['content'] ?? ''),
+              'image': item['image'] ?? '',
+              'link': item['link'] ?? '',
+              'price': extractPrice(item['content'] ?? ''),
+            }));
           }
         }
 
@@ -56,4 +59,18 @@ abstract class _FoodStore with Store {
   void removeFromCart(FoodItem item) {
     cartItems.remove(item);
   }
+
+  double get totalCartPrice => cartItems.fold(0, (total, item) => total + 2);
+}
+
+double extractCalories(String content) {
+  final regex = RegExp(r'(\d+) calories');
+  final match = regex.firstMatch(content);
+  return match != null ? double.parse(match.group(1)!) : 0.0;
+}
+
+double extractPrice(String content) {
+  final regex = RegExp(r'\$(\d+\.\d+) per serving');
+  final match = regex.firstMatch(content);
+  return match != null ? double.parse(match.group(1)!) : 0.0;
 }

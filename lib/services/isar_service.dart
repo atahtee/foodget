@@ -13,7 +13,7 @@ class IsarService {
     final dir = await getApplicationDocumentsDirectory();
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [FoodItemSchema],
+        [IsarFoodItemSchema],
         directory: dir.path,
       );
     }
@@ -22,16 +22,32 @@ class IsarService {
 
   Future<void> addFoodItems(List<FoodItem> items) async {
     final isar = await db;
-    isar.writeTxn(() => isar.foodItems.putAll(items));
+    final isarItems = items.map((item) => IsarFoodItem()
+      ..title = item.title
+      ..calories = item.calories
+      ..image = item.image
+      ..link = item.link
+      ..price = item.price).toList();
+    await isar.writeTxn(() async {
+      await isar.isarFoodItems.putAll(isarItems);
+    });
   }
 
   Future<List<FoodItem>> getFoodItems() async {
     final isar = await db;
-    return await isar.foodItems.where().findAll();
+    final isarItems = await isar.isarFoodItems.where().findAll();
+    return isarItems.map((isarItem) => FoodItem(
+      id: isarItem.id,
+      title: isarItem.title,
+      calories: isarItem.calories,
+      image: isarItem.image,
+      link: isarItem.link,
+      price: isarItem.price,
+    )).toList();
   }
 
   Future<bool> isFoodItemsEmpty() async {
     final isar = await db;
-    return await isar.foodItems.count() == 0;
+    return await isar.isarFoodItems.count() == 0;
   }
 }

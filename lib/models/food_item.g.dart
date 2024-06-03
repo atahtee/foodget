@@ -9,13 +9,13 @@ part of 'food_item.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetFoodItemCollection on Isar {
-  IsarCollection<FoodItem> get foodItems => this.collection();
+extension GetIsarFoodItemCollection on Isar {
+  IsarCollection<IsarFoodItem> get isarFoodItems => this.collection();
 }
 
-const FoodItemSchema = CollectionSchema(
-  name: r'FoodItem',
-  id: 8311037358550475404,
+const IsarFoodItemSchema = CollectionSchema(
+  name: r'IsarFoodItem',
+  id: -946254928741392219,
   properties: {
     r'calories': PropertySchema(
       id: 0,
@@ -43,22 +43,22 @@ const FoodItemSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _foodItemEstimateSize,
-  serialize: _foodItemSerialize,
-  deserialize: _foodItemDeserialize,
-  deserializeProp: _foodItemDeserializeProp,
+  estimateSize: _isarFoodItemEstimateSize,
+  serialize: _isarFoodItemSerialize,
+  deserialize: _isarFoodItemDeserialize,
+  deserializeProp: _isarFoodItemDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _foodItemGetId,
-  getLinks: _foodItemGetLinks,
-  attach: _foodItemAttach,
+  getId: _isarFoodItemGetId,
+  getLinks: _isarFoodItemGetLinks,
+  attach: _isarFoodItemAttach,
   version: '3.1.0+1',
 );
 
-int _foodItemEstimateSize(
-  FoodItem object,
+int _isarFoodItemEstimateSize(
+  IsarFoodItem object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -69,8 +69,8 @@ int _foodItemEstimateSize(
   return bytesCount;
 }
 
-void _foodItemSerialize(
-  FoodItem object,
+void _isarFoodItemSerialize(
+  IsarFoodItem object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -82,23 +82,23 @@ void _foodItemSerialize(
   writer.writeString(offsets[4], object.title);
 }
 
-FoodItem _foodItemDeserialize(
+IsarFoodItem _isarFoodItemDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = FoodItem();
-  object.calories = reader.readLong(offsets[0]);
+  final object = IsarFoodItem();
+  object.calories = reader.readLongOrNull(offsets[0]);
   object.id = id;
   object.image = reader.readString(offsets[1]);
   object.link = reader.readString(offsets[2]);
-  object.price = reader.readDouble(offsets[3]);
+  object.price = reader.readDoubleOrNull(offsets[3]);
   object.title = reader.readString(offsets[4]);
   return object;
 }
 
-P _foodItemDeserializeProp<P>(
+P _isarFoodItemDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -106,13 +106,13 @@ P _foodItemDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
     default:
@@ -120,28 +120,31 @@ P _foodItemDeserializeProp<P>(
   }
 }
 
-Id _foodItemGetId(FoodItem object) {
-  return object.id;
+Id _isarFoodItemGetId(IsarFoodItem object) {
+  return object.id ?? Isar.autoIncrement;
 }
 
-List<IsarLinkBase<dynamic>> _foodItemGetLinks(FoodItem object) {
+List<IsarLinkBase<dynamic>> _isarFoodItemGetLinks(IsarFoodItem object) {
   return [];
 }
 
-void _foodItemAttach(IsarCollection<dynamic> col, Id id, FoodItem object) {
+void _isarFoodItemAttach(
+    IsarCollection<dynamic> col, Id id, IsarFoodItem object) {
   object.id = id;
 }
 
-extension FoodItemQueryWhereSort on QueryBuilder<FoodItem, FoodItem, QWhere> {
-  QueryBuilder<FoodItem, FoodItem, QAfterWhere> anyId() {
+extension IsarFoodItemQueryWhereSort
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QWhere> {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension FoodItemQueryWhere on QueryBuilder<FoodItem, FoodItem, QWhereClause> {
-  QueryBuilder<FoodItem, FoodItem, QAfterWhereClause> idEqualTo(Id id) {
+extension IsarFoodItemQueryWhere
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QWhereClause> {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -150,7 +153,8 @@ extension FoodItemQueryWhere on QueryBuilder<FoodItem, FoodItem, QWhereClause> {
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterWhereClause> idNotEqualTo(
+      Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -172,7 +176,8 @@ extension FoodItemQueryWhere on QueryBuilder<FoodItem, FoodItem, QWhereClause> {
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterWhereClause> idGreaterThan(
+      Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -181,7 +186,7 @@ extension FoodItemQueryWhere on QueryBuilder<FoodItem, FoodItem, QWhereClause> {
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -190,7 +195,7 @@ extension FoodItemQueryWhere on QueryBuilder<FoodItem, FoodItem, QWhereClause> {
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterWhereClause> idBetween(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -207,10 +212,28 @@ extension FoodItemQueryWhere on QueryBuilder<FoodItem, FoodItem, QWhereClause> {
   }
 }
 
-extension FoodItemQueryFilter
-    on QueryBuilder<FoodItem, FoodItem, QFilterCondition> {
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> caloriesEqualTo(
-      int value) {
+extension IsarFoodItemQueryFilter
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QFilterCondition> {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      caloriesIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'calories',
+      ));
+    });
+  }
+
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      caloriesIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'calories',
+      ));
+    });
+  }
+
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      caloriesEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'calories',
@@ -219,8 +242,9 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> caloriesGreaterThan(
-    int value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      caloriesGreaterThan(
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -232,8 +256,9 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> caloriesLessThan(
-    int value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      caloriesLessThan(
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -245,9 +270,10 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> caloriesBetween(
-    int lower,
-    int upper, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      caloriesBetween(
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -262,7 +288,25 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> idIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      idIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id',
+      ));
+    });
+  }
+
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> idEqualTo(
+      Id? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -271,8 +315,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> idGreaterThan(
-    Id value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> idGreaterThan(
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -284,8 +328,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> idLessThan(
-    Id value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> idLessThan(
+    Id? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -297,9 +341,9 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> idBetween(
+    Id? lower,
+    Id? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -314,7 +358,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageEqualTo(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> imageEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -327,7 +371,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageGreaterThan(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      imageGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -342,7 +387,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageLessThan(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> imageLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -357,7 +402,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageBetween(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> imageBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -376,7 +421,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageStartsWith(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      imageStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -389,7 +435,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageEndsWith(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> imageEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -402,7 +448,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageContains(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> imageContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -414,7 +460,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageMatches(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> imageMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -426,7 +472,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageIsEmpty() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      imageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'image',
@@ -435,7 +482,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageIsNotEmpty() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      imageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'image',
@@ -444,7 +492,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkEqualTo(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> linkEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -457,7 +505,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkGreaterThan(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      linkGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -472,7 +521,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkLessThan(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> linkLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -487,7 +536,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkBetween(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> linkBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -506,7 +555,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkStartsWith(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      linkStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -519,7 +569,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkEndsWith(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> linkEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -532,7 +582,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkContains(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> linkContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -544,7 +594,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkMatches(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> linkMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -556,7 +606,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkIsEmpty() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      linkIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'link',
@@ -565,7 +616,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkIsNotEmpty() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      linkIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'link',
@@ -574,8 +626,26 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceEqualTo(
-    double value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      priceIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'price',
+      ));
+    });
+  }
+
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      priceIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'price',
+      ));
+    });
+  }
+
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> priceEqualTo(
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -587,8 +657,9 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceGreaterThan(
-    double value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      priceGreaterThan(
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -602,8 +673,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceLessThan(
-    double value, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> priceLessThan(
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -617,9 +688,9 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceBetween(
-    double lower,
-    double upper, {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> priceBetween(
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -636,7 +707,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleEqualTo(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> titleEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -649,7 +720,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleGreaterThan(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      titleGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -664,7 +736,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleLessThan(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> titleLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -679,7 +751,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleBetween(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> titleBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -698,7 +770,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleStartsWith(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      titleStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -711,7 +784,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleEndsWith(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> titleEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -724,7 +797,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleContains(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> titleContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -736,7 +809,7 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleMatches(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition> titleMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -748,7 +821,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleIsEmpty() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      titleIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'title',
@@ -757,7 +831,8 @@ extension FoodItemQueryFilter
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleIsNotEmpty() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterFilterCondition>
+      titleIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'title',
@@ -767,178 +842,179 @@ extension FoodItemQueryFilter
   }
 }
 
-extension FoodItemQueryObject
-    on QueryBuilder<FoodItem, FoodItem, QFilterCondition> {}
+extension IsarFoodItemQueryObject
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QFilterCondition> {}
 
-extension FoodItemQueryLinks
-    on QueryBuilder<FoodItem, FoodItem, QFilterCondition> {}
+extension IsarFoodItemQueryLinks
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QFilterCondition> {}
 
-extension FoodItemQuerySortBy on QueryBuilder<FoodItem, FoodItem, QSortBy> {
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByCalories() {
+extension IsarFoodItemQuerySortBy
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QSortBy> {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByCalories() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'calories', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByCaloriesDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByCaloriesDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'calories', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByImage() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByImage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByImageDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByLink() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByLink() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByLinkDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByLinkDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByPrice() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByPriceDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByPriceDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByTitle() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByTitleDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> sortByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.desc);
     });
   }
 }
 
-extension FoodItemQuerySortThenBy
-    on QueryBuilder<FoodItem, FoodItem, QSortThenBy> {
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByCalories() {
+extension IsarFoodItemQuerySortThenBy
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QSortThenBy> {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByCalories() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'calories', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByCaloriesDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByCaloriesDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'calories', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenById() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByImage() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByImage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByImageDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByLink() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByLink() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByLinkDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByLinkDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'link', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByPrice() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByPriceDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByPriceDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'price', Sort.desc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByTitle() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByTitleDesc() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QAfterSortBy> thenByTitleDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.desc);
     });
   }
 }
 
-extension FoodItemQueryWhereDistinct
-    on QueryBuilder<FoodItem, FoodItem, QDistinct> {
-  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByCalories() {
+extension IsarFoodItemQueryWhereDistinct
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QDistinct> {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QDistinct> distinctByCalories() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'calories');
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByImage(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QDistinct> distinctByImage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'image', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByLink(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QDistinct> distinctByLink(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'link', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByPrice() {
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QDistinct> distinctByPrice() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'price');
     });
   }
 
-  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByTitle(
+  QueryBuilder<IsarFoodItem, IsarFoodItem, QDistinct> distinctByTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
@@ -946,39 +1022,39 @@ extension FoodItemQueryWhereDistinct
   }
 }
 
-extension FoodItemQueryProperty
-    on QueryBuilder<FoodItem, FoodItem, QQueryProperty> {
-  QueryBuilder<FoodItem, int, QQueryOperations> idProperty() {
+extension IsarFoodItemQueryProperty
+    on QueryBuilder<IsarFoodItem, IsarFoodItem, QQueryProperty> {
+  QueryBuilder<IsarFoodItem, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<FoodItem, int, QQueryOperations> caloriesProperty() {
+  QueryBuilder<IsarFoodItem, int?, QQueryOperations> caloriesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'calories');
     });
   }
 
-  QueryBuilder<FoodItem, String, QQueryOperations> imageProperty() {
+  QueryBuilder<IsarFoodItem, String, QQueryOperations> imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'image');
     });
   }
 
-  QueryBuilder<FoodItem, String, QQueryOperations> linkProperty() {
+  QueryBuilder<IsarFoodItem, String, QQueryOperations> linkProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'link');
     });
   }
 
-  QueryBuilder<FoodItem, double, QQueryOperations> priceProperty() {
+  QueryBuilder<IsarFoodItem, double?, QQueryOperations> priceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'price');
     });
   }
 
-  QueryBuilder<FoodItem, String, QQueryOperations> titleProperty() {
+  QueryBuilder<IsarFoodItem, String, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'title');
     });
@@ -989,17 +1065,19 @@ extension FoodItemQueryProperty
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$FoodItemDataImpl _$$FoodItemDataImplFromJson(Map<String, dynamic> json) =>
-    _$FoodItemDataImpl(
+_$FoodItemImpl _$$FoodItemImplFromJson(Map<String, dynamic> json) =>
+    _$FoodItemImpl(
+      id: (json['id'] as num?)?.toInt() ?? Isar.autoIncrement,
       title: json['title'] as String,
-      calories: (json['calories'] as num).toInt(),
+      calories: (json['calories'] as num?)?.toInt(),
       image: json['image'] as String,
       link: json['link'] as String,
-      price: (json['price'] as num).toDouble(),
+      price: (json['price'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$FoodItemDataImplToJson(_$FoodItemDataImpl instance) =>
+Map<String, dynamic> _$$FoodItemImplToJson(_$FoodItemImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'calories': instance.calories,
       'image': instance.image,

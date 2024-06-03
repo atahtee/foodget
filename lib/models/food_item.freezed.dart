@@ -14,38 +14,43 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-FoodItemData _$FoodItemDataFromJson(Map<String, dynamic> json) {
-  return _FoodItemData.fromJson(json);
+FoodItem _$FoodItemFromJson(Map<String, dynamic> json) {
+  return _FoodItem.fromJson(json);
 }
 
 /// @nodoc
-mixin _$FoodItemData {
+mixin _$FoodItem {
+  int? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  int get calories => throw _privateConstructorUsedError;
+  int? get calories => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get link => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  double? get price => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $FoodItemDataCopyWith<FoodItemData> get copyWith =>
+  $FoodItemCopyWith<FoodItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FoodItemDataCopyWith<$Res> {
-  factory $FoodItemDataCopyWith(
-          FoodItemData value, $Res Function(FoodItemData) then) =
-      _$FoodItemDataCopyWithImpl<$Res, FoodItemData>;
+abstract class $FoodItemCopyWith<$Res> {
+  factory $FoodItemCopyWith(FoodItem value, $Res Function(FoodItem) then) =
+      _$FoodItemCopyWithImpl<$Res, FoodItem>;
   @useResult
   $Res call(
-      {String title, int calories, String image, String link, double price});
+      {int? id,
+      String title,
+      int? calories,
+      String image,
+      String link,
+      double? price});
 }
 
 /// @nodoc
-class _$FoodItemDataCopyWithImpl<$Res, $Val extends FoodItemData>
-    implements $FoodItemDataCopyWith<$Res> {
-  _$FoodItemDataCopyWithImpl(this._value, this._then);
+class _$FoodItemCopyWithImpl<$Res, $Val extends FoodItem>
+    implements $FoodItemCopyWith<$Res> {
+  _$FoodItemCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -55,21 +60,26 @@ class _$FoodItemDataCopyWithImpl<$Res, $Val extends FoodItemData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = null,
-    Object? calories = null,
+    Object? calories = freezed,
     Object? image = null,
     Object? link = null,
-    Object? price = null,
+    Object? price = freezed,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      calories: null == calories
+      calories: freezed == calories
           ? _value.calories
           : calories // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -78,52 +88,62 @@ class _$FoodItemDataCopyWithImpl<$Res, $Val extends FoodItemData>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$FoodItemDataImplCopyWith<$Res>
-    implements $FoodItemDataCopyWith<$Res> {
-  factory _$$FoodItemDataImplCopyWith(
-          _$FoodItemDataImpl value, $Res Function(_$FoodItemDataImpl) then) =
-      __$$FoodItemDataImplCopyWithImpl<$Res>;
+abstract class _$$FoodItemImplCopyWith<$Res>
+    implements $FoodItemCopyWith<$Res> {
+  factory _$$FoodItemImplCopyWith(
+          _$FoodItemImpl value, $Res Function(_$FoodItemImpl) then) =
+      __$$FoodItemImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String title, int calories, String image, String link, double price});
+      {int? id,
+      String title,
+      int? calories,
+      String image,
+      String link,
+      double? price});
 }
 
 /// @nodoc
-class __$$FoodItemDataImplCopyWithImpl<$Res>
-    extends _$FoodItemDataCopyWithImpl<$Res, _$FoodItemDataImpl>
-    implements _$$FoodItemDataImplCopyWith<$Res> {
-  __$$FoodItemDataImplCopyWithImpl(
-      _$FoodItemDataImpl _value, $Res Function(_$FoodItemDataImpl) _then)
+class __$$FoodItemImplCopyWithImpl<$Res>
+    extends _$FoodItemCopyWithImpl<$Res, _$FoodItemImpl>
+    implements _$$FoodItemImplCopyWith<$Res> {
+  __$$FoodItemImplCopyWithImpl(
+      _$FoodItemImpl _value, $Res Function(_$FoodItemImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = null,
-    Object? calories = null,
+    Object? calories = freezed,
     Object? image = null,
     Object? link = null,
-    Object? price = null,
+    Object? price = freezed,
   }) {
-    return _then(_$FoodItemDataImpl(
+    return _then(_$FoodItemImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      calories: null == calories
+      calories: freezed == calories
           ? _value.calories
           : calories // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -132,48 +152,53 @@ class __$$FoodItemDataImplCopyWithImpl<$Res>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
+      price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$FoodItemDataImpl implements _FoodItemData {
-  const _$FoodItemDataImpl(
-      {required this.title,
+class _$FoodItemImpl implements _FoodItem {
+  const _$FoodItemImpl(
+      {this.id = Isar.autoIncrement,
+      required this.title,
       required this.calories,
       required this.image,
       required this.link,
       required this.price});
 
-  factory _$FoodItemDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$FoodItemDataImplFromJson(json);
+  factory _$FoodItemImpl.fromJson(Map<String, dynamic> json) =>
+      _$$FoodItemImplFromJson(json);
 
+  @override
+  @JsonKey()
+  final int? id;
   @override
   final String title;
   @override
-  final int calories;
+  final int? calories;
   @override
   final String image;
   @override
   final String link;
   @override
-  final double price;
+  final double? price;
 
   @override
   String toString() {
-    return 'FoodItemData(title: $title, calories: $calories, image: $image, link: $link, price: $price)';
+    return 'FoodItem(id: $id, title: $title, calories: $calories, image: $image, link: $link, price: $price)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FoodItemDataImpl &&
+            other is _$FoodItemImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.calories, calories) ||
                 other.calories == calories) &&
@@ -185,45 +210,48 @@ class _$FoodItemDataImpl implements _FoodItemData {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, calories, image, link, price);
+      Object.hash(runtimeType, id, title, calories, image, link, price);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$FoodItemDataImplCopyWith<_$FoodItemDataImpl> get copyWith =>
-      __$$FoodItemDataImplCopyWithImpl<_$FoodItemDataImpl>(this, _$identity);
+  _$$FoodItemImplCopyWith<_$FoodItemImpl> get copyWith =>
+      __$$FoodItemImplCopyWithImpl<_$FoodItemImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FoodItemDataImplToJson(
+    return _$$FoodItemImplToJson(
       this,
     );
   }
 }
 
-abstract class _FoodItemData implements FoodItemData {
-  const factory _FoodItemData(
-      {required final String title,
-      required final int calories,
+abstract class _FoodItem implements FoodItem {
+  const factory _FoodItem(
+      {final int? id,
+      required final String title,
+      required final int? calories,
       required final String image,
       required final String link,
-      required final double price}) = _$FoodItemDataImpl;
+      required final double? price}) = _$FoodItemImpl;
 
-  factory _FoodItemData.fromJson(Map<String, dynamic> json) =
-      _$FoodItemDataImpl.fromJson;
+  factory _FoodItem.fromJson(Map<String, dynamic> json) =
+      _$FoodItemImpl.fromJson;
 
+  @override
+  int? get id;
   @override
   String get title;
   @override
-  int get calories;
+  int? get calories;
   @override
   String get image;
   @override
   String get link;
   @override
-  double get price;
+  double? get price;
   @override
   @JsonKey(ignore: true)
-  _$$FoodItemDataImplCopyWith<_$FoodItemDataImpl> get copyWith =>
+  _$$FoodItemImplCopyWith<_$FoodItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

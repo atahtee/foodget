@@ -1,29 +1,29 @@
-import 'package:isar/isar.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:isar/isar.dart';
 
 part 'food_item.freezed.dart';
 part 'food_item.g.dart';
 
-@Collection()
-class FoodItem {
-  Id id = Isar.autoIncrement;
-
-  late String title;
-  late int calories;
-  late String image;
-  late String link;
-  late double price;  // Add price field
-}
-
 @freezed
-class FoodItemData with _$FoodItemData {
-  const factory FoodItemData({
+class FoodItem with _$FoodItem {
+  const factory FoodItem({
+    @Default(Isar.autoIncrement) int? id,
     required String title,
-    required int calories,
+    required int? calories,
     required String image,
     required String link,
-    required double price,  // Add price field
-  }) = _FoodItemData;
+    required double? price,
+  }) = _FoodItem;
 
-  factory FoodItemData.fromJson(Map<String, dynamic> json) => _$FoodItemDataFromJson(json);
+  factory FoodItem.fromJson(Map<String, dynamic> json) => _$FoodItemFromJson(json);
+}
+
+@Collection()
+class IsarFoodItem {
+  Id? id = Isar.autoIncrement;
+  late String title;
+  late int? calories;
+  late String image;
+  late String link;
+  late double? price;
 }
