@@ -22,8 +22,23 @@ const FoodItemSchema = CollectionSchema(
       name: r'calories',
       type: IsarType.long,
     ),
-    r'title': PropertySchema(
+    r'image': PropertySchema(
       id: 1,
+      name: r'image',
+      type: IsarType.string,
+    ),
+    r'link': PropertySchema(
+      id: 2,
+      name: r'link',
+      type: IsarType.string,
+    ),
+    r'price': PropertySchema(
+      id: 3,
+      name: r'price',
+      type: IsarType.double,
+    ),
+    r'title': PropertySchema(
+      id: 4,
       name: r'title',
       type: IsarType.string,
     )
@@ -48,6 +63,8 @@ int _foodItemEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.image.length * 3;
+  bytesCount += 3 + object.link.length * 3;
   bytesCount += 3 + object.title.length * 3;
   return bytesCount;
 }
@@ -59,7 +76,10 @@ void _foodItemSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.calories);
-  writer.writeString(offsets[1], object.title);
+  writer.writeString(offsets[1], object.image);
+  writer.writeString(offsets[2], object.link);
+  writer.writeDouble(offsets[3], object.price);
+  writer.writeString(offsets[4], object.title);
 }
 
 FoodItem _foodItemDeserialize(
@@ -71,7 +91,10 @@ FoodItem _foodItemDeserialize(
   final object = FoodItem();
   object.calories = reader.readLong(offsets[0]);
   object.id = id;
-  object.title = reader.readString(offsets[1]);
+  object.image = reader.readString(offsets[1]);
+  object.link = reader.readString(offsets[2]);
+  object.price = reader.readDouble(offsets[3]);
+  object.title = reader.readString(offsets[4]);
   return object;
 }
 
@@ -85,6 +108,12 @@ P _foodItemDeserializeProp<P>(
     case 0:
       return (reader.readLong(offset)) as P;
     case 1:
+      return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readString(offset)) as P;
+    case 3:
+      return (reader.readDouble(offset)) as P;
+    case 4:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -285,6 +314,328 @@ extension FoodItemQueryFilter
     });
   }
 
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'image',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'image',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'image',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'image',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> imageIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'image',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'link',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'link',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'link',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'link',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'link',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'link',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'link',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'link',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'link',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> linkIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'link',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'price',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'price',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'price',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> priceBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'price',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
   QueryBuilder<FoodItem, FoodItem, QAfterFilterCondition> titleEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -435,6 +786,42 @@ extension FoodItemQuerySortBy on QueryBuilder<FoodItem, FoodItem, QSortBy> {
     });
   }
 
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByImage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.asc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByImageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.desc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByLink() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'link', Sort.asc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByLinkDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'link', Sort.desc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.asc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByPriceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.desc);
+    });
+  }
+
   QueryBuilder<FoodItem, FoodItem, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -474,6 +861,42 @@ extension FoodItemQuerySortThenBy
     });
   }
 
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByImage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.asc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByImageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'image', Sort.desc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByLink() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'link', Sort.asc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByLinkDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'link', Sort.desc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.asc);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByPriceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.desc);
+    });
+  }
+
   QueryBuilder<FoodItem, FoodItem, QAfterSortBy> thenByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -492,6 +915,26 @@ extension FoodItemQueryWhereDistinct
   QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByCalories() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'calories');
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByImage(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'image', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByLink(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'link', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<FoodItem, FoodItem, QDistinct> distinctByPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'price');
     });
   }
 
@@ -517,9 +960,49 @@ extension FoodItemQueryProperty
     });
   }
 
+  QueryBuilder<FoodItem, String, QQueryOperations> imageProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'image');
+    });
+  }
+
+  QueryBuilder<FoodItem, String, QQueryOperations> linkProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'link');
+    });
+  }
+
+  QueryBuilder<FoodItem, double, QQueryOperations> priceProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'price');
+    });
+  }
+
   QueryBuilder<FoodItem, String, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'title');
     });
   }
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$FoodItemDataImpl _$$FoodItemDataImplFromJson(Map<String, dynamic> json) =>
+    _$FoodItemDataImpl(
+      title: json['title'] as String,
+      calories: (json['calories'] as num).toInt(),
+      image: json['image'] as String,
+      link: json['link'] as String,
+      price: (json['price'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$FoodItemDataImplToJson(_$FoodItemDataImpl instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'calories': instance.calories,
+      'image': instance.image,
+      'link': instance.link,
+      'price': instance.price,
+    };

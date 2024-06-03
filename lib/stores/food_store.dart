@@ -14,10 +14,13 @@ abstract class _FoodStore with Store {
   @observable
   ObservableList<FoodItem> foodItems = ObservableList<FoodItem>();
 
+  @observable
+  ObservableList<FoodItem> cartItems = ObservableList<FoodItem>();
+
   @action
   Future<void> fetchFoodItems() async {
     if (await _isarService.isFoodItemsEmpty()) {
-      final response = await http.get(Uri.parse('https://api.spoonacular.com/food/search?apiKey=4fea14b6f3b24c6d970fa17c33fd72e1'));
+      final response = await http.get(Uri.parse('https://api.spoonacular.com/food/search?apiKey=4fea14b6f3b24c6d970fa17c33fd72e'));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body)['searchResults'] as List;
@@ -27,9 +30,10 @@ abstract class _FoodStore with Store {
           for (var item in result['results']) {
             items.add(FoodItem()
               ..title = item['name']
-              ..calories = item['calories'] ?? 0 // Assuming you want to set calories; change if necessary
+              ..calories = item['calories'] ?? 0
               ..image = item['image']
-              ..link = item['link']);
+              ..link = item['link']
+              ..price = item['price'] ?? 10.0);  // Use a default price or get it from the API if available
           }
         }
 
@@ -41,5 +45,15 @@ abstract class _FoodStore with Store {
     } else {
       foodItems.addAll(await _isarService.getFoodItems());
     }
+  }
+
+  @action
+  void addToCart(FoodItem item) {
+    cartItems.add(item);
+  }
+
+  @action
+  void removeFromCart(FoodItem item) {
+    cartItems.remove(item);
   }
 }

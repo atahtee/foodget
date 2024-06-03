@@ -25,6 +25,22 @@ mixin _$FoodStore on _FoodStore, Store {
     });
   }
 
+  late final _$cartItemsAtom =
+      Atom(name: '_FoodStore.cartItems', context: context);
+
+  @override
+  ObservableList<FoodItem> get cartItems {
+    _$cartItemsAtom.reportRead();
+    return super.cartItems;
+  }
+
+  @override
+  set cartItems(ObservableList<FoodItem> value) {
+    _$cartItemsAtom.reportWrite(value, super.cartItems, () {
+      super.cartItems = value;
+    });
+  }
+
   late final _$fetchFoodItemsAsyncAction =
       AsyncAction('_FoodStore.fetchFoodItems', context: context);
 
@@ -33,10 +49,36 @@ mixin _$FoodStore on _FoodStore, Store {
     return _$fetchFoodItemsAsyncAction.run(() => super.fetchFoodItems());
   }
 
+  late final _$_FoodStoreActionController =
+      ActionController(name: '_FoodStore', context: context);
+
+  @override
+  void addToCart(FoodItem item) {
+    final _$actionInfo =
+        _$_FoodStoreActionController.startAction(name: '_FoodStore.addToCart');
+    try {
+      return super.addToCart(item);
+    } finally {
+      _$_FoodStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removeFromCart(FoodItem item) {
+    final _$actionInfo = _$_FoodStoreActionController.startAction(
+        name: '_FoodStore.removeFromCart');
+    try {
+      return super.removeFromCart(item);
+    } finally {
+      _$_FoodStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-foodItems: ${foodItems}
+foodItems: ${foodItems},
+cartItems: ${cartItems}
     ''';
   }
 }
