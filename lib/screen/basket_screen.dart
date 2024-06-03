@@ -15,7 +15,7 @@ class BasketScreen extends StatelessWidget {
                 builder: (context) {
                   return AlertDialog(
                     title: Text('Checkout'),
-                    content: Text('Total items: 0'), // Update this to show the actual count
+                    content: Text('Total items: 0'),
                     actions: [
                       TextButton(
                         onPressed: () {

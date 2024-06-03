@@ -2,10 +2,12 @@ import 'package:isar/isar.dart';
 
 part 'food_item.g.dart';
 
-@Collection()
+@collection
 class FoodItem {
   Id id = Isar.autoIncrement;
 
   late String title;
-  late int calories;
+  late String image;
+  late String link;
+  int? calories;
 }
