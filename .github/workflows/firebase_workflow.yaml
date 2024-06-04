@@ -28,6 +28,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.10.6'
+          
       - name: 'Checkout Flutter 3.10.7'
         shell: bash
         run: |
