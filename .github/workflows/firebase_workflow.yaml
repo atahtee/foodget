@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
+          distribution: 'adopt'
 
       - name: Decode keystore
         run: echo $ANDROID_KEYSTORE_BASE64 | base64 --decode > release-key.jks
