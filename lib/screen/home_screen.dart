@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Food Iteeems'),
+        title: Text('Food Items'),
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_basket),
