@@ -1,6 +1,6 @@
 # foodget
 
-A new  project.
+A   project.
 
 ## Getting Started
 
