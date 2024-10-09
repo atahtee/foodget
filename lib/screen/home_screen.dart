@@ -47,13 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: _foodStore.foodItems.length,
               itemBuilder: (context, index) {
                 final item = _foodStore.foodItems[index];
-                return ListTile(
-                  title: Text(item.title),
-                  subtitle: Text('${item.calories} calories'),
-                  trailing: IconButton(
-                    icon: Icon(Icons.add_shopping_cart),
-
-                  ),
+               
                 );
               },
             );
