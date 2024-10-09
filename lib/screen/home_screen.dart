@@ -52,9 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   subtitle: Text('${item.calories} calories'),
                   trailing: IconButton(
                     icon: Icon(Icons.add_shopping_cart),
-                    onPressed: () {
-                      _foodStore.addToCart(item);
-                    },
+
                   ),
                 );
               },
